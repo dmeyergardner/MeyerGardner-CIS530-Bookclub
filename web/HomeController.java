@@ -1,21 +1,34 @@
-package com.example.bookclub.controller;
+/******************************************************************************
+ * File: HomeController.java
+ * Author: Deb Meyer-Gardner
+ * Created: 2025-03-26
+ * Description: This controller handles routing for the Bookclub application,
+ *              including the home, about, and contact pages.
+ ******************************************************************************/
+package web;
 
-
+/**
+ * Controller for handling navigation routes
+ */
 @Controller
+@RequestMapping("/")
 public class HomeController {
-
-    @RequestMapping("/")
-    public String showHome() {
+/**
+     * Displays the landing page
+     * @return index view
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public String showHome(Model model) {
         return "index";
     }
-
-    @RequestMapping("/about")
-    public String showAboutUs() {
+// About Us page route
+    @RequestMapping(method = RequestMethod.GET, path = "/about")
+    public String showAboutUs(Modal model) {
         return "about";
     }
-
-    @RequestMapping("/contact")
-    public String showContactUs() {
+// Contact Us page route
+    @RequestMapping(method = RequestMethod.GET, path = "/contact")
+    public String showContactUs(Model model) {
         return "contact";
     }
 }
