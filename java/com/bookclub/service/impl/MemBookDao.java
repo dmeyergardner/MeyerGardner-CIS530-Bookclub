@@ -1,9 +1,12 @@
-// File: src/main/java/com/bookclub/model/Book.java
-package com.bookclub.model;
+// File: src/main/java/com/bookclub/service/impl/MemBookDao.java
+package java.com.bookclub.service.impl;
 
+import java.com.bookclub.model.Book;
+import java.com.bookclub.service.dao.BookDao;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 
 public class MemBookDao implements BookDao {
     private List<Book> books;

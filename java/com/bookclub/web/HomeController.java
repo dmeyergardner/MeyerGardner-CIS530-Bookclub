@@ -5,7 +5,8 @@
  * Description: This controller handles routing for the Bookclub application,
  *              including the home, about, and contact pages.
  ******************************************************************************/
-package web;
+package java.com.bookclub.web;
+
 
 /**
  * Controller for handling navigation routes
@@ -32,3 +33,18 @@ public class HomeController {
         return "contact";
     }
 }
+@RequestMapping("/")
+    public String showHome(Model model) {
+        MemBookDao bookDao = new MemBookDao();
+        List<Book> books = bookDao.list();
+        model.addAttribute("books", books);
+        return "index";
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String getMonthlyBook(@PathVariable("id") String id, Model model) {
+        MemBookDao bookDao = new MemBookDao();
+        Book book = bookDao.find(id);
+        model.addAttribute("book", book);
+        return "monthly-books/view";
+    }
