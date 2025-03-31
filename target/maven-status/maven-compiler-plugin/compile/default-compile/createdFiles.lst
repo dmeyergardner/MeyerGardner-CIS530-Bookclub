@@ -1,0 +1,6 @@
+com/bookclub/BookclubApplication.class
+com/bookclub/model/Book.class
+com/bookclub/web/HomeController.class
+com/bookclub/service/impl/MemBookDao.class
+com/bookclub/service/GenericDao.class
+com/bookclub/service/dao/BookDao.class

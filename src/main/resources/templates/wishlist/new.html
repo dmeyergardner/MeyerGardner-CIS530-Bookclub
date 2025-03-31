@@ -1,0 +1,15 @@
+<form th:action="@{/wishlist}" th:object="${wishlistItem}" method="post">
+    <div>
+      <label>ISBN</label>
+      <input type="text" th:field="*{isbn}" />
+      <div style="color: red;" th:errors="*{isbn}"></div>
+    </div>
+    <div>
+      <label>Title</label>
+      <input type="text" th:field="*{title}" />
+      <div style="color: red;" th:errors="*{title}"></div>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+  <a th:href="@{/wishlist}">Return to wishlist</a>
+  
