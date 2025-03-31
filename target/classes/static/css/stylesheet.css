@@ -1,0 +1,110 @@
+/* File: src/main/resources/static/css/site.css */
+/* site.css - Custom styles for Bookclub app */
+
+/* General body styling */
+body {
+  background-color: #f8f9fa;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #212529;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .card {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
+
+body.dark-mode .list-group-item {
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+}
+
+/* Custom containers */
+.container-narrow {
+  width: 50%;
+  margin: 0 auto;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+/* Book card styling */
+.book-card {
+  border-radius: 1rem;
+  padding: 1rem;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.book-card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Card title emphasis */
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: #009688; /* MDL Teal */
+  border-color: #009688;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #00796b;
+  border-color: #00796b;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+/* Author list */
+.list-group-item {
+  font-style: italic;
+  background-color: #ffffff;
+}
+
+/* Font Awesome icon spacing */
+.fa {
+  margin-right: 0.5rem;
+}
+
+/* Dark mode toggle button */
+.toggle-dark-mode {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  background-color: #343a40;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.toggle-dark-mode:hover {
+  background-color: #495057;
+}
+
+/* MDL typography helpers */
+.heading-mdl {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #009688;
+}
+
+.mdl-body-1 {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}

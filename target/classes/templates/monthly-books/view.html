@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="'Bookclub | ' + ${book.title}">Bookclub | View Book</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+
+    <!-- Material Design Lite (MDL) Teal-Pink Theme -->
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-pink.min.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-RXf+QSDCUQs6x+Fi7M3A2jZcqVt9nuigA9+AaKz0RocXtMEQ6M9RkqYj2D2TylB0Px7mf7S1vvfz2w+1y5acHQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/site.css}" />
+</head>
+
+<body>
+
+    <!-- Header Fragment -->
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <!-- Book Detail Card -->
+    <div class="container container-narrow">
+        <div class="card book-card mdl-shadow--4dp">
+            <div class="card-body">
+                <h2 class="card-title heading-mdl" th:text="${book.title}">Book Title</h2>
+                <h6 class="card-subtitle mb-2 text-muted" th:text="'ISBN: ' + ${book.isbn}">ISBN</h6>
+
+                <p class="card-text mdl-body-1 mt-3" th:text="${book.description}">Book description here.</p>
+
+                <p class="card-text">
+                    <i class="fas fa-book-open"></i>
+                    <strong>Pages:</strong> <span th:text="${book.numOfPages}">0</span>
+                </p>
+
+                <p><strong>Authors:</strong></p>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item" th:each="author : ${book.authors}" th:text="${author}">Author Name</li>
+                </ul>
+
+                <a th:href="@{/}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Footer Fragment -->
+    <div th:replace="fragments/scriptFooter :: scriptFooter"></div>
+
+    <!-- MDL JavaScript -->
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+
+</html>
