@@ -13,8 +13,10 @@ public class WishlistItem {
     @NotEmpty(message = "Title is a required field.")
     private String title;
 
+    // Default constructor
     public WishlistItem() {}
 
+    // Parameterized constructor
     public WishlistItem(String isbn, String title) {
         this.isbn = isbn;
         this.title = title;

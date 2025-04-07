@@ -1,15 +1,37 @@
-<form th:action="@{/wishlist}" th:object="${wishlistItem}" method="post">
-    <div>
-      <label>ISBN</label>
-      <input type="text" th:field="*{isbn}" />
-      <div style="color: red;" th:errors="*{isbn}"></div>
+<!-- File: src/main/resources/templates/wishlist/new.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Wishlist Item</title>
+    <link rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body>
+
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <div class="container mt-5" style="max-width: 600px;">
+        <h1 class="mb-4">Add a New Wishlist Item</h1>
+
+        <form th:action="@{/wishlist}" th:object="${wishlistItem}" method="post">
+            <div class="mb-3">
+                <label for="isbn" class="form-label">ISBN</label>
+                <input type="text" th:field="*{isbn}" class="form-control" id="isbn" />
+                <div style="color: red;" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" th:field="*{title}" class="form-control" id="title" />
+                <div style="color: red;" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit</button>
+            <a class="btn btn-secondary ms-2" th:href="@{/wishlist}">Return to wishlist</a>
+        </form>
     </div>
-    <div>
-      <label>Title</label>
-      <input type="text" th:field="*{title}" />
-      <div style="color: red;" th:errors="*{title}"></div>
-    </div>
-    <button type="submit">Submit</button>
-  </form>
-  <a th:href="@{/wishlist}">Return to wishlist</a>
-  
+
+    <div th:replace="~{fragments/scriptFooter :: scriptFooter}"></div>
+</body>
+</html>
