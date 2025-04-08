@@ -1,7 +1,6 @@
 com/bookclub/model/WishlistItem.class
 com/bookclub/BookclubApplication.class
 com/bookclub/web/WishlistController.class
-com/bookclub/web/TestController.class
 com/bookclub/model/Book.class
 com/bookclub/service/GenericCrudDao.class
 com/bookclub/service/dao/WishlistDao.class
