@@ -13,9 +13,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bookclub.model.Book;
 import com.bookclub.service.impl.MemBookDao;
@@ -37,7 +37,7 @@ public class HomeController {
      * @param model the Spring model used to pass attributes to the view
      * @return the name of the Thymeleaf template to render (index.html)
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public String showHome(Model model) {
         MemBookDao bookDao = new MemBookDao();
         List<Book> books = bookDao.list();
@@ -51,7 +51,7 @@ public class HomeController {
      * @param model the Spring model used to pass attributes to the view (if needed)
      * @return the name of the Thymeleaf template to render (about.html)
      */
-    @RequestMapping(value = "/about", method = RequestMethod.GET)
+    @GetMapping("/about")
     public String showAboutUs(Model model) {
         return "about";
     }
@@ -62,7 +62,7 @@ public class HomeController {
      * @param model the Spring model used to pass attributes to the view (if needed)
      * @return the name of the Thymeleaf template to render (contact.html)
      */
-    @RequestMapping(value = "/contact", method = RequestMethod.GET)
+    @GetMapping("/contact")
     public String showContactUs(Model model) {
         return "contact";
     }
@@ -75,8 +75,8 @@ public class HomeController {
      * @return the name of the Thymeleaf template to render
      *         (monthly-books/view.html)
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getMonthlyBook(@PathVariable("id") String id, Model model) {
+    @GetMapping("/{id}")
+    public String getMonthlyBook(@PathVariable String id, Model model) {
         MemBookDao bookDao = new MemBookDao();
         Book book = bookDao.find(id);
         model.addAttribute("book", book);
