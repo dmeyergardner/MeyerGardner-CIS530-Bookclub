@@ -1,9 +1,19 @@
+// File: src/main/java/com/bookclub/model/WishlistItem.java
+
 package com.bookclub.model;
+
+import org.springframework.data.annotation.Id;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * Model class representing a wishlist item stored in MongoDB.
+ */
 public class WishlistItem {
+
+    @Id
+    private String id;
 
     @NotNull(message = "ISBN is a required field.")
     @NotEmpty(message = "ISBN is a required field.")
@@ -22,14 +32,31 @@ public class WishlistItem {
         this.title = title;
     }
 
-    public String getIsbn() { return isbn; }
-    public void setIsbn(String isbn) { this.isbn = isbn; }
+    // Getters and setters
+    public String getId() {
+        return id;
+    }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public String getIsbn() {
+        return isbn;
+    }
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     @Override
     public String toString() {
-        return "WishlistItem{isbn='" + isbn + "', title='" + title + "'}";
+        return "WishlistItem{" +
+                "id='" + id + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

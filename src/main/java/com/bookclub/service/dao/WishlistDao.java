@@ -3,12 +3,11 @@
 package com.bookclub.service.dao;
 
 import com.bookclub.model.WishlistItem;
-import com.bookclub.service.GenericDao;
+import com.bookclub.service.GenericCrudDao;
 
 /**
- * DAO interface for managing WishlistItem entities.
- * Extends GenericDao with WishlistItem as the entity type and String as the key type (ISBN).
+ * DAO interface for WishlistItem, extending generic CRUD operations.
  */
-public interface WishlistDao extends GenericDao<WishlistItem, String> {
-    // Inherits list() and find(String key) methods
+public interface WishlistDao extends GenericCrudDao<WishlistItem, String> {
+    // All methods inherited from GenericCrudDao
 }

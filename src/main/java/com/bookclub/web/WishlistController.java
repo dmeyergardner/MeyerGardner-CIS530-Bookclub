@@ -4,6 +4,7 @@ package com.bookclub.web;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,65 +14,71 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bookclub.model.WishlistItem;
-import com.bookclub.service.impl.MemWishlistDao;
+import com.bookclub.service.dao.WishlistDao;
 
 import jakarta.validation.Valid;
 
 /**
- * Controller for managing user interactions related to wishlist items.
- * Provides endpoints to view, create, and validate wishlist entries.
+ * Controller for managing wishlist items using MongoDB.
  */
 @Controller
 @RequestMapping("/wishlist")
 public class WishlistController {
 
+    private WishlistDao wishlistDao;
+
     /**
-     * Displays the list of wishlist items.
+     * Setter-based dependency injection for WishlistDao.
      *
-     * @param model the Spring Model object used to pass data to the view
-     * @return the name of the Thymeleaf template for the wishlist view
+     * @param wishlistDao the DAO implementation to be injected
+     */
+    @Autowired
+    private void setWishlistDao(WishlistDao wishlistDao) {
+        this.wishlistDao = wishlistDao;
+    }
+
+    /**
+     * Displays the wishlist page with all wishlist items.
+     *
+     * @param model the Spring model for passing attributes to the view
+     * @return the wishlist list view
      */
     @GetMapping
     public String showWishlist(Model model) {
-        MemWishlistDao dao = new MemWishlistDao();
-        List<WishlistItem> wishlist = dao.list();
+        List<WishlistItem> wishlist = wishlistDao.list();
         model.addAttribute("wishlist", wishlist);
         return "wishlist/list";
     }
 
     /**
-     * Displays the form to create a new wishlist item.
+     * Displays the form to add a new wishlist item.
      *
-     * @param model the Spring Model object used to initialize form fields
-     * @return the name of the Thymeleaf template for the new wishlist item form
+     * @param model the Spring model
+     * @return the form view
      */
     @GetMapping("/new")
     public String wishlistForm(Model model) {
         model.addAttribute("wishlistItem", new WishlistItem());
         return "wishlist/new";
     }
-/**
- * Handles form submission for a new WishlistItem.
- * Validates the input and redisplays the form if errors exist.
- * If valid, redirects to the wishlist list view.
- *
- * @param wishlistItem the form-bound WishlistItem
- * @param bindingResult the validation result object (must follow @Valid parameter)
- * @return the name of the view to render or redirect path
- */
-@PostMapping
-public String addWishlistItem(
-        @Valid @ModelAttribute WishlistItem wishlistItem,
-        BindingResult bindingResult) {
 
-    // Check if the form has validation errors
-    if (bindingResult.hasErrors()) {
-        // Re-display the form with error messages
-        return "wishlist/new";
+    /**
+     * Handles form submission for a new wishlist item.
+     *
+     * @param wishlistItem the wishlist item submitted
+     * @param bindingResult validation results
+     * @return view name for redirection or form redisplay on error
+     */
+    @PostMapping
+    public String addWishlistItem(
+            @Valid @ModelAttribute WishlistItem wishlistItem,
+            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "wishlist/new";
+        }
+
+        wishlistDao.add(wishlistItem);
+        return "redirect:/wishlist";
     }
-
-    // Normally, you'd persist wishlistItem here. For now, simulate success.
-    return "redirect:/wishlist";  // Forward user to the updated list
-}
-
 }
