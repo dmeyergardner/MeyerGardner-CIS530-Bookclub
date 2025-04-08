@@ -1,11 +1,13 @@
 com/bookclub/model/WishlistItem.class
-com/bookclub/web/WishlistController.class
-com/bookclub/service/GenericCrudDao.class
-com/bookclub/service/dao/BookDao.class
 com/bookclub/BookclubApplication.class
+com/bookclub/web/WishlistController.class
+com/bookclub/web/TestController.class
 com/bookclub/model/Book.class
+com/bookclub/service/GenericCrudDao.class
 com/bookclub/service/dao/WishlistDao.class
+com/bookclub/web/PingController.class
 com/bookclub/web/HomeController.class
 com/bookclub/service/impl/MemBookDao.class
 com/bookclub/service/impl/MongoWishlistDao.class
 com/bookclub/service/GenericDao.class
+com/bookclub/service/dao/BookDao.class

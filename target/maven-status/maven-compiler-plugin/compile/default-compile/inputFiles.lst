@@ -8,5 +8,6 @@
 /Users/deborahmeyer-gardner1/github/MeyerGardner-CIS530-Bookclub/src/main/java/com/bookclub/service/impl/MemBookDao.java
 /Users/deborahmeyer-gardner1/github/MeyerGardner-CIS530-Bookclub/src/main/java/com/bookclub/service/impl/MongoWishlistDao.java
 /Users/deborahmeyer-gardner1/github/MeyerGardner-CIS530-Bookclub/src/main/java/com/bookclub/web/HomeController.java
+/Users/deborahmeyer-gardner1/github/MeyerGardner-CIS530-Bookclub/src/main/java/com/bookclub/web/PingController.java
 /Users/deborahmeyer-gardner1/github/MeyerGardner-CIS530-Bookclub/src/main/java/com/bookclub/web/TestController.java
 /Users/deborahmeyer-gardner1/github/MeyerGardner-CIS530-Bookclub/src/main/java/com/bookclub/web/WishlistController.java
