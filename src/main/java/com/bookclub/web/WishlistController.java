@@ -65,7 +65,7 @@ public class WishlistController {
     /**
      * Handles form submission for a new wishlist item.
      *
-     * @param wishlistItem the wishlist item submitted
+     * @param wishlistItem  the wishlist item submitted
      * @param bindingResult validation results
      * @return view name for redirection or form redisplay on error
      */
