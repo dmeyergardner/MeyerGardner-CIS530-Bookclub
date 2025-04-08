@@ -1,12 +1,3 @@
-/******************************************************************************
- * File: HomeController.java
- * Author: Deb Meyer-Gardner
- * Created: 2025-03-26
- * Description: This controller handles routing for the Bookclub application,
- *              including the home, about, contact pages, and the dynamic
- *              detail view for individual book selections.
- ******************************************************************************/
-
 package com.bookclub.web;
 
 import java.util.List;
@@ -29,6 +20,7 @@ public class HomeController {
      */
     @GetMapping
     public String showHome(Model model) {
+        System.out.println("🚀 HomeController: showHome() triggered");
         MemBookDao bookDao = new MemBookDao();
         List<Book> books = bookDao.list();
         model.addAttribute("books", books);
