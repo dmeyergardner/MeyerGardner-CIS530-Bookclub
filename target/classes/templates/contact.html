@@ -5,23 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bookclub | Contact Us</title>
 
-    <!-- Skip Link -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
     <!-- Bootstrap CSS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-pYJL+zEY+XAFz5jZPLcNOiOJKGadK94QIC5oyXf7WqskFxPArfdZZmL+a5u+FeoE"
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      integrity="sha384-JzZ1WODbPscd5fE4v3m92vbp2PKK2NmP8AhfXaXvKlq6XYvU7M0hbe0WXn/5A8Rz"
       crossorigin="anonymous"
-    ></script>
+    />
 
-    <!-- Material Design Lite (MDL) Teal-Pink Theme -->
+    <!-- MDL Theme -->
     <link
       rel="stylesheet"
       href="https://code.getmdl.io/1.3.0/material.teal-pink.min.css"
     />
 
-    <!-- Font Awesome Icons -->
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -31,27 +29,27 @@
     />
 
     <!-- Custom CSS -->
-    <link rel="site" th:href="@{/css/site.css}" />
+    <link rel="stylesheet" th:href="@{/css/site.css}" />
   </head>
 
   <body>
+    <!-- Accessibility: Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header Fragment -->
     <div th:insert="~{fragments/header :: header}"></div>
 
     <!-- Main Content -->
-    <main id="main-content" class="container container-narrow" role="main">
+    <main id="main-content" class="container container-narrow py-5" role="main">
       <header class="text-center mb-4">
         <h1 class="heading-mdl">📬 Contact Us</h1>
         <p class="lead">We'd love to hear from you!</p>
       </header>
 
       <section class="row g-5" aria-labelledby="contact-info">
-        <div class="col-md-6 text-center">
-          <h2 id="contact-info" class="text-md-start">
-            <i
-              class="fas fa-location-arrow text-secondary"
-              aria-hidden="true"
-            ></i>
+        <div class="col-md-6 text-center text-md-start">
+          <h2 id="contact-info">
+            <i class="fas fa-location-arrow text-secondary" aria-hidden="true"></i>
             Address
           </h2>
           <address>
@@ -62,10 +60,10 @@
           </address>
         </div>
 
-        <div class="col-md-6 text-center">
-          <h2 class="text-md-start">
-            <i class="fas fa-phone text-secondary" aria-hidden="true"></i> Phone
-            Numbers
+        <div class="col-md-6 text-center text-md-start">
+          <h2>
+            <i class="fas fa-phone text-secondary" aria-hidden="true"></i>
+            Phone Numbers
           </h2>
           <ul class="list-group">
             <li class="list-group-item border-0">
@@ -84,6 +82,5 @@
 
     <!-- Footer Scripts -->
     <div th:replace="~{fragments/scriptFooter :: scriptFooter}"></div>
-
   </body>
 </html>

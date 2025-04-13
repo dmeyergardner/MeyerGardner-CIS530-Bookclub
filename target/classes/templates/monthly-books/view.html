@@ -5,20 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title th:text="'Bookclub | ' + ${book.title}">Bookclub | View Book</title>
 
-    <!-- Skip link for accessibility -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
     <!-- Bootstrap CSS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-pYJL+zEY+XAFz5jZPLcNOiOJKGadK94QIC5oyXf7WqskFxPArfdZZmL+a5u+FeoE"
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      integrity="sha384-9ndCyUa6mY2U6kzG/9woX+t1MEc9KdudP4BwF0+XTw4L9fUksdQRVvoxMfooAoE+"
       crossorigin="anonymous"
-    ></script>
+    />
 
     <!-- Material Design Lite (MDL) Teal-Pink Theme -->
     <link
       rel="stylesheet"
       href="https://code.getmdl.io/1.3.0/material.teal-pink.min.css"
+    />
+
+    <!-- Material Icons (optional for MDL compatibility) -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
     />
 
     <!-- Font Awesome Icons -->
@@ -31,10 +35,13 @@
     />
 
     <!-- Custom CSS -->
-    <link rel="site" th:href="@{/css/site.css}" />
+    <link rel="stylesheet" th:href="@{/css/site.css}" />
   </head>
 
   <body>
+    <!-- Accessibility: Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header Fragment -->
     <div th:insert="~{fragments/header :: header}"></div>
 
@@ -49,24 +56,29 @@
             class="card-title heading-mdl"
             th:text="${book.title}"
             id="book-title"
+            tabindex="0"
           >
             Book Title
           </h2>
-          <p class="text-muted" th:text="'ISBN: ' + ${book.isbn}">ISBN</p>
 
-          <p class="mdl-body-1" th:text="${book.description}">
+          <p class="text-muted" th:text="'ISBN: ' + ${book.isbn}" tabindex="0">
+            ISBN
+          </p>
+
+          <p class="mdl-body-1" th:text="${book.description}" tabindex="0">
             Book description goes here.
           </p>
 
-          <p class="card-text">
+          <p class="card-text" tabindex="0">
             <i class="fas fa-book-open" aria-hidden="true"></i>
             <strong>Pages:</strong>
             <span th:text="${book.numOfPages}">0</span>
           </p>
 
-          <section aria-label="Author list">
-            <h3 class="h5 mt-4">
-              <i class="fas fa-user-pen text-secondary"></i> Authors
+          <section aria-labelledby="author-list-heading" class="mt-4">
+            <h3 class="h5" id="author-list-heading">
+              <i class="fas fa-user-pen text-secondary" aria-hidden="true"></i>
+              Authors
             </h3>
             <ul class="list-group mb-3" role="list">
               <li
@@ -94,6 +106,5 @@
 
     <!-- Script Footer Fragment -->
     <div th:replace="~{fragments/scriptFooter :: scriptFooter}"></div>
-
   </body>
 </html>
