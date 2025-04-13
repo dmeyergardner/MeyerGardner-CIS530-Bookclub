@@ -13,34 +13,45 @@
 
   <!-- Enable keyboard skip link & dark mode toggle -->
   <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          // WCAG skip link support
+          const skipLink = document.querySelector(".skip-link");
+          if (skipLink) {
+            skipLink.addEventListener("focus", () => {
+              skipLink.style.position = "static";
+            });
+            skipLink.addEventListener("blur", () => {
+              skipLink.style.position = "absolute";
+            });
+          }
+
+          // Dark mode toggle support
+          function setupDarkModeToggle() {
+      const toggleButton = document.querySelector(".toggle-dark-mode");
+      if (!toggleButton) return;
+
+      // Load saved mode
+      if (localStorage.getItem("dark-mode") === "true") {
+        document.body.classList.add("dark-mode");
+      }
+
+      // Listen for toggle
+      toggleButton.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode"));
+      });
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
-      // WCAG skip link support
+      // Setup skip link
       const skipLink = document.querySelector(".skip-link");
       if (skipLink) {
-        skipLink.addEventListener("focus", () => {
-          skipLink.style.position = "static";
-        });
-        skipLink.addEventListener("blur", () => {
-          skipLink.style.position = "absolute";
-        });
+        skipLink.addEventListener("focus", () => skipLink.style.position = "static");
+        skipLink.addEventListener("blur", () => skipLink.style.position = "absolute");
       }
 
-      // Dark mode toggle support
-      const toggleButton = document.querySelector(".toggle-dark-mode");
-      if (toggleButton) {
-        toggleButton.addEventListener("click", () => {
-          document.body.classList.toggle("dark-mode");
-          localStorage.setItem(
-            "dark-mode",
-            document.body.classList.contains("dark-mode")
-          );
-        });
-
-        // Load dark mode from previous session
-        if (localStorage.getItem("dark-mode") === "true") {
-          document.body.classList.add("dark-mode");
-        }
-      }
+      // Delay setup of dark mode to ensure fragments are rendered
+      setTimeout(setupDarkModeToggle, 0);
     });
   </script>
 </div>
