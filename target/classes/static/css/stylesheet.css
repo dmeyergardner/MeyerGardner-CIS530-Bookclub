@@ -110,7 +110,7 @@ body.dark-mode .mdl-body-1 {
 body.dark-mode .book-card,
 body.dark-mode .wishlist-card {
   background-color: #1e1e1e;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 12px rgba(248, 128, 224, 0.391);
 }
 
 .card-title {
