@@ -1,0 +1,49 @@
+<!-- File: src/main/resources/templates/fragments/header.html -->
+<div th:fragment="header">
+  <a href="#main-content" class="skip-link visually-hidden-focusable">
+    Skip to main content
+  </a>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mdl-shadow--2dp" role="navigation" aria-label="Main navigation">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <i class="fas fa-book-reader text-primary" aria-hidden="true"></i>
+        <span>Bookclub</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/about">
+              <i class="fas fa-info-circle" aria-hidden="true"></i> About Us
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">
+              <i class="fas fa-envelope" aria-hidden="true"></i> Contact Us
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/wishlist">
+              <i class="fas fa-heart text-danger" aria-hidden="true"></i> Wishlist
+            </a>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-dark btn-sm ms-3 toggle-dark-mode"
+                    onclick="document.body.classList.toggle('dark-mode')"
+                    aria-label="Toggle dark mode"
+                    title="Toggle dark mode">
+              🌓
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
