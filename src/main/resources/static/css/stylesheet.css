@@ -29,8 +29,8 @@
 }
 
 /* =============================
-     Global Base Styling
-     ============================= */
+       Global Base Styling
+       ============================= */
 body {
   background-color: #f5f5f5;
   font-family: "Roboto", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -50,8 +50,8 @@ textarea:focus {
 }
 
 /* =============================
-     Dark Mode Styling
-     ============================= */
+       Dark Mode Styling
+       ============================= */
 body.dark-mode {
   background-color: #121212;
   color: #e0e0e0;
@@ -77,7 +77,7 @@ body.dark-mode .list-group-item {
 }
 
 body.dark-mode .heading-mdl {
-  color: #80cbc4 !important;
+  color: #80cbc4;
 }
 
 .mdl-body-1 {
@@ -92,8 +92,8 @@ body.dark-mode .mdl-body-1 {
 }
 
 /* =============================
-     Cards
-     ============================= */
+       Cards
+       ============================= */
 .book-card,
 .wishlist-card {
   border-radius: 1rem;
@@ -126,8 +126,8 @@ body.dark-mode .card-title {
 }
 
 /* =============================
-     Buttons
-     ============================= */
+       Buttons
+       ============================= */
 .btn-primary {
   background-color: #009688;
   border-color: #009688;
@@ -157,8 +157,8 @@ body.dark-mode .btn-primary {
 }
 
 /* =============================
-     Toggle Dark Mode
-     ============================= */
+       Toggle Dark Mode
+       ============================= */
 .toggle-dark-mode {
   position: relative; /* or use absolute only if inside nav */
   margin-left: 1rem;
@@ -177,8 +177,8 @@ body.dark-mode .btn-primary {
 }
 
 /* =============================
-     Form Fields
-     ============================= */
+       Form Fields
+       ============================= */
 input.form-control,
 textarea.form-control {
   border-radius: 0.5rem;
@@ -228,8 +228,8 @@ body.dark-mode .form-label {
 }
 
 /* =============================
-     Layout & Containers
-     ============================= */
+       Layout & Containers
+       ============================= */
 .container-narrow {
   width: 50%;
   margin: 0 auto;
@@ -247,8 +247,8 @@ body.dark-mode .form-label {
 }
 
 /* =============================
-     List Items & Icons
-     ============================= */
+       List Items & Icons
+       ============================= */
 .list-group-item {
   font-style: italic;
   background-color: #ffffff;
