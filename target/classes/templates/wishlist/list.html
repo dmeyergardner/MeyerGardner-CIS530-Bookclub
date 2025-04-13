@@ -45,19 +45,17 @@
 
       <section aria-label="Wishlist Items">
         <ul
-          class="mdl-list"
+          class="list-unstyled"
           role="list"
           th:if="${wishlist != null and !wishlist.isEmpty()}"
         >
           <li
-            class="mdl-list__item wishlist-card mb-3"
+            class="wishlist-card mb-3 d-flex align-items-center gap-3"
             role="listitem"
             th:each="item : ${wishlist}"
           >
-            <span class="mdl-list__item-primary-content">
-              <i class="material-icons mdl-list__item-icon" aria-hidden="true"
-                >bookmark</i
-              >
+            <i class="fas fa-bookmark text-pink fs-4" aria-hidden="true"></i>
+            <span>
               <span class="fw-bold" th:text="${item.title}">Book Title</span>
               –
               <span th:text="'ISBN: ' + ${item.isbn}">ISBN Number</span>
@@ -76,18 +74,18 @@
       <div class="text-center mt-4">
         <a
           href="/wishlist/new"
-          class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored"
+          class="btn btn-primary rounded-circle"
           title="Add new wishlist item"
           aria-label="Add new wishlist item"
         >
-          <i class="material-icons" aria-hidden="true">add</i>
+          <i class="fas fa-plus" aria-hidden="true"></i>
         </a>
       </div>
     </main>
 
     <div th:insert="~{fragments/footer :: footer}"></div>
 
-    <!-- Footer Scripts -->
+    <!-- Script Footer Fragment -->
     <div th:replace="~{fragments/scriptFooter :: scriptFooter}"></div>
   </body>
 </html>
