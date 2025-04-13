@@ -1,46 +1,46 @@
 <!-- scriptFooter.html -->
 <div th:fragment="scriptFooter">
-    <!-- Bootstrap Bundle with Popper -->
-    <script 
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-qZYmNz5nLtMQmINiY2wlTiVo6qJGTEaXSOjv2wKy1+3oY7iQebzF7x5LLS6KJk20"
-        crossorigin="anonymous"
-        defer>
-    </script>
+  <!-- Bootstrap Bundle JS (safe version) -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeo5nDgfHfA3Z4x3rPz9ZC1og+Jp4YLgFtWvC1bXkl8y4j3M"
+    crossorigin="anonymous"
+    defer
+  ></script>
 
-    <!-- Material Design Lite JavaScript -->
-    <script 
-        src="https://code.getmdl.io/1.3.0/material.min.js" 
-        defer>
-    </script>
+  <!-- Material Design Lite JavaScript -->
+  <script src="https://code.getmdl.io/1.3.0/material.min.js" defer></script>
 
-    <!-- Enable keyboard skip link & dark mode toggle -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // WCAG skip link support
-            const skipLink = document.querySelector('.skip-link');
-            if (skipLink) {
-                skipLink.addEventListener('focus', () => {
-                    skipLink.style.position = 'static';
-                });
-                skipLink.addEventListener('blur', () => {
-                    skipLink.style.position = 'absolute';
-                });
-            }
-
-            // Dark mode toggle support
-            const toggleButton = document.querySelector('.toggle-dark-mode');
-            if (toggleButton) {
-                toggleButton.addEventListener('click', () => {
-                    document.body.classList.toggle('dark-mode');
-                    localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
-                });
-
-                // Load dark mode from previous session
-                if (localStorage.getItem('dark-mode') === 'true') {
-                    document.body.classList.add('dark-mode');
-                }
-            }
+  <!-- Enable keyboard skip link & dark mode toggle -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // WCAG skip link support
+      const skipLink = document.querySelector(".skip-link");
+      if (skipLink) {
+        skipLink.addEventListener("focus", () => {
+          skipLink.style.position = "static";
         });
-    </script>
+        skipLink.addEventListener("blur", () => {
+          skipLink.style.position = "absolute";
+        });
+      }
+
+      // Dark mode toggle support
+      const toggleButton = document.querySelector(".toggle-dark-mode");
+      if (toggleButton) {
+        toggleButton.addEventListener("click", () => {
+          document.body.classList.toggle("dark-mode");
+          localStorage.setItem(
+            "dark-mode",
+            document.body.classList.contains("dark-mode")
+          );
+        });
+
+        // Load dark mode from previous session
+        if (localStorage.getItem("dark-mode") === "true") {
+          document.body.classList.add("dark-mode");
+        }
+      }
+    });
+  </script>
 </div>
