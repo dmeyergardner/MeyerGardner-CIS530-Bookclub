@@ -1,19 +1,31 @@
 <!-- File: src/main/resources/templates/fragments/header.html -->
 <div th:fragment="header">
+  <!-- Skip Link for Accessibility -->
   <a href="#main-content" class="skip-link visually-hidden-focusable">
     Skip to main content
   </a>
 
   <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light mdl-shadow--2dp" role="navigation" aria-label="Main navigation">
+  <nav
+    class="navbar navbar-expand-lg navbar-light bg-light mdl-shadow--2dp"
+    role="navigation"
+    aria-label="Main navigation"
+  >
     <div class="container-fluid">
       <a class="navbar-brand" href="/">
         <i class="fas fa-book-reader text-primary" aria-hidden="true"></i>
         <span>Bookclub</span>
       </a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -24,21 +36,58 @@
               <i class="fas fa-info-circle" aria-hidden="true"></i> About Us
             </a>
           </li>
+
           <li class="nav-item">
             <a class="nav-link" href="/contact">
               <i class="fas fa-envelope" aria-hidden="true"></i> Contact Us
             </a>
           </li>
+
           <li class="nav-item">
             <a class="nav-link" href="/wishlist">
-              <i class="fas fa-heart text-danger" aria-hidden="true"></i> Wishlist
+              <i class="fas fa-heart text-danger" aria-hidden="true"></i>
+              Wishlist
             </a>
           </li>
+
+          <!-- Authenticated user section -->
+          <li
+            class="nav-item d-flex align-items-center px-2"
+            sec:authorize="isAuthenticated()"
+          >
+            <span
+              class="navbar-text text-muted fw-bold"
+              th:text="'👋 ' + ${#httpServletRequest.remoteUser}"
+              >User</span
+            >
+          </li>
+
+          <li class="nav-item" sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post" class="d-inline">
+              <button
+                type="submit"
+                class="btn btn-outline-danger btn-sm ms-2"
+                aria-label="Log out"
+              >
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </button>
+            </form>
+          </li>
+
+          <!-- Unauthenticated user login link -->
+          <li class="nav-item" sec:authorize="!isAuthenticated()">
+            <a class="btn btn-outline-primary btn-sm ms-2" href="/login">
+              <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+          </li>
+
+          <!-- Dark mode toggle -->
           <li class="nav-item">
-            <button class="btn btn-outline-dark btn-sm ms-3 toggle-dark-mode"
-                    onclick="document.body.classList.toggle('dark-mode')"
-                    aria-label="Toggle dark mode"
-                    title="Toggle dark mode">
+            <button
+              class="btn btn-outline-dark btn-sm ms-3 toggle-dark-mode"
+              aria-label="Toggle dark mode"
+              title="Toggle dark mode"
+            >
               🌓
             </button>
           </li>
