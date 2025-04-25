@@ -11,7 +11,7 @@
       href="https://code.getmdl.io/1.3.0/material.teal-pink.min.css"
     />
 
-    <!-- Font Awesome (no integrity check to avoid mismatch error) -->
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -43,33 +43,8 @@
         💖 My Wishlist
       </h1>
 
-      <section aria-label="Wishlist Items">
-        <ul
-          class="list-unstyled"
-          role="list"
-          th:if="${wishlist != null and !wishlist.isEmpty()}"
-        >
-          <li
-            class="wishlist-card mb-3 d-flex align-items-center gap-3"
-            role="listitem"
-            th:each="item : ${wishlist}"
-          >
-            <i class="fas fa-bookmark text-pink fs-4" aria-hidden="true"></i>
-            <span>
-              <span class="fw-bold" th:text="${item.title}">Book Title</span>
-              –
-              <span th:text="'ISBN: ' + ${item.isbn}">ISBN Number</span>
-            </span>
-          </li>
-        </ul>
-
-        <div
-          th:if="${wishlist == null or wishlist.isEmpty()}"
-          class="text-center text-muted mt-4"
-        >
-          <p>No wishlist items yet. Start adding books you love!</p>
-        </div>
-      </section>
+      <!-- Wishlist Table will be dynamically inserted here -->
+      <div id="wishlist" class="table-responsive"></div>
 
       <div class="text-center mt-4">
         <a
@@ -85,7 +60,46 @@
 
     <div th:insert="~{fragments/footer :: footer}"></div>
 
-    <!-- Script Footer Fragment -->
+    <!-- Footer Scripts -->
     <div th:replace="~{fragments/scriptFooter :: scriptFooter}"></div>
+
+    <!-- JavaScript to Fetch API Data -->
+    <script>
+      class HttpClient {
+        async get(url) {
+          const response = await fetch(url);
+          return await response.json();
+        }
+      }
+
+      function buildTable(items) {
+        let tableString = `
+        <table class="table table-hover table-bordered align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">ISBN</th>
+            </tr>
+          </thead>
+          <tbody>`;
+
+        for (const item of items) {
+          tableString += `
+          <tr>
+            <td>${item.title}</td>
+            <td>${item.isbn}</td>
+          </tr>`;
+        }
+
+        tableString += `</tbody></table>`;
+        return tableString;
+      }
+
+      (async function loadWishlist() {
+        const client = new HttpClient();
+        const data = await client.get("/api/wishlist");
+        document.getElementById("wishlist").innerHTML = buildTable(data);
+      })();
+    </script>
   </body>
 </html>

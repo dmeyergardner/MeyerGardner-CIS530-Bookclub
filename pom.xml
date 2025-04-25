@@ -60,6 +60,13 @@
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
             <version>3.1.1.RELEASE</version>
         </dependency>
+
+        <!-- OpenAPI Swagger Documentation -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.5.2</version>
+        </dependency>
     </dependencies>
 
     <build>
