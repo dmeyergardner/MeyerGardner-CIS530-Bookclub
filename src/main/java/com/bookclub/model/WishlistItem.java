@@ -2,44 +2,34 @@
 
 package com.bookclub.model;
 
-import org.springframework.data.annotation.Id;
-
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 /**
- * Model class representing a wishlist item stored in MongoDB.
+ * Represents a user's Wishlist Item.
+ * Developer Note:
+ * - Now includes a 'username' property to associate items with a specific user.
  */
 public class WishlistItem {
 
-    @Id
-    private String id;
-
-    @NotNull(message = "ISBN is a required field.")
-    @NotEmpty(message = "ISBN is a required field.")
+    @NotBlank(message = "ISBN must not be blank")
     private String isbn;
 
-    @NotNull(message = "Title is a required field.")
-    @NotEmpty(message = "Title is a required field.")
+    @NotBlank(message = "Title must not be blank")
     private String title;
 
-    // Default constructor
-    public WishlistItem() {}
+    // New field for user association
+    private String username;
 
-    // Parameterized constructor
-    public WishlistItem(String isbn, String title) {
-        this.isbn = isbn;
-        this.title = title;
+    public WishlistItem() {
+        // Default constructor
     }
 
-    // Getters and setters
-    public String getId() {
-        return id;
-    }
+    // ======= Getters and Setters ========
 
     public String getIsbn() {
         return isbn;
     }
+
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
@@ -47,16 +37,27 @@ public class WishlistItem {
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    // ======= toString() Override =========
+
     @Override
     public String toString() {
         return "WishlistItem{" +
-                "id='" + id + '\'' +
-                ", isbn='" + isbn + '\'' +
+                "isbn='" + isbn + '\'' +
                 ", title='" + title + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }

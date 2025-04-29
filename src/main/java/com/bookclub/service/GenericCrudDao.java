@@ -32,14 +32,14 @@ public interface GenericCrudDao<E, K> {
      * @param entity the entity to remove
      * @return true if removal was successful, false otherwise
      */
-    boolean remove(E entity);
+    boolean remove(K key);
 
     /**
      * Retrieves a list of all entities in the data store.
      *
      * @return a list of all entities
      */
-    List<E> list();
+    List<E> list(K key);
 
     /**
      * Finds an entity by its key.

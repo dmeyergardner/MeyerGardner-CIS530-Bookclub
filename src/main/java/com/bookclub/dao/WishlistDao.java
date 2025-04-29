@@ -1,6 +1,6 @@
 // File: src/main/java/com/bookclub/service/dao/WishlistDao.java
 
-package com.bookclub.service.dao;
+package com.bookclub.dao;
 
 import com.bookclub.model.WishlistItem;
 import com.bookclub.service.GenericCrudDao;

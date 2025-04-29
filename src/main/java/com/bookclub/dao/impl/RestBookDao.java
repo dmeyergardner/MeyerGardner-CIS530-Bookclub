@@ -60,7 +60,8 @@ public class RestBookDao implements BookDao {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(openLibraryUrl)
+        UriComponentsBuilder builder = UriComponentsBuilder
+                .fromUriString(openLibraryUrl)
                 .queryParam("bibkeys", isbnString)
                 .queryParam("format", "json")
                 .queryParam("jscmd", "data");
