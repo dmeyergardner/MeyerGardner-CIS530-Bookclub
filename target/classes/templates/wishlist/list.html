@@ -5,65 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bookclub | Wishlist</title>
 
-    <!-- Material Design Lite (MDL) Theme -->
-    <link
-      rel="stylesheet"
-      href="https://code.getmdl.io/1.3.0/material.teal-pink.min.css"
-    />
-
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-
-    <!-- Bootstrap 5 CSS -->
+    <!-- Bootstrap 5 -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       crossorigin="anonymous"
     />
 
-    <!-- Custom CSS -->
+    <!-- Custom Styles -->
     <link rel="stylesheet" th:href="@{/css/stylesheet.css}" />
   </head>
 
   <body>
-    <!-- Accessibility: Skip Link -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <!-- Header Fragment -->
+    <!-- Header -->
     <div th:insert="~{fragments/header :: header}"></div>
 
-    <!-- Main Content -->
-    <main id="main-content" class="container py-5" role="main">
-      <h1 class="text-center heading-mdl mb-4 mdl-typography--display-2">
-        💖 My Wishlist
-      </h1>
+    <main class="container py-5" role="main">
+      <h1 class="text-center heading-mdl mb-5">💖 My Wishlist</h1>
 
-      <!-- Wishlist Table will be dynamically inserted here -->
       <div id="wishlist" class="table-responsive"></div>
-
-      <div class="text-center mt-4">
-        <a
-          href="/wishlist/new"
-          class="btn btn-primary rounded-circle"
-          title="Add new wishlist item"
-          aria-label="Add new wishlist item"
-        >
-          <i class="fas fa-plus" aria-hidden="true"></i>
-        </a>
-      </div>
     </main>
 
     <div th:insert="~{fragments/footer :: footer}"></div>
 
-    <!-- Footer Scripts -->
-    <div th:replace="~{fragments/scriptFooter :: scriptFooter}"></div>
-
-    <!-- JavaScript to Fetch API Data -->
+    <!-- JavaScript Fetch -->
     <script>
       class HttpClient {
         async get(url) {
@@ -74,31 +39,37 @@
 
       function buildTable(items) {
         let tableString = `
-        <table class="table table-hover table-bordered align-middle">
-          <thead class="table-dark">
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">ISBN</th>
-            </tr>
-          </thead>
-          <tbody>`;
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Title</th>
+                            <th>ISBN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
 
         for (const item of items) {
           tableString += `
-          <tr>
-            <td>${item.title}</td>
-            <td>${item.isbn}</td>
-          </tr>`;
+                    <tr>
+                        <td>${item.title}</td>
+                        <td>${item.isbn}</td>
+                    </tr>
+                `;
         }
 
-        tableString += `</tbody></table>`;
+        tableString += `
+                    </tbody>
+                </table>
+            `;
+
         return tableString;
       }
 
-      (async function loadWishlist() {
+      (async () => {
         const client = new HttpClient();
-        const data = await client.get("/api/wishlist");
-        document.getElementById("wishlist").innerHTML = buildTable(data);
+        const items = await client.get("/api/wishlist");
+        document.getElementById("wishlist").innerHTML = buildTable(items);
       })();
     </script>
   </body>

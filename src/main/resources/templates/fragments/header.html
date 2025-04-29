@@ -78,6 +78,16 @@
               >User</span
             >
           </li>
+          <!-- OpenAPI Documentation link -->
+          <li class="nav-item">
+            <a
+              class="btn btn-outline-info btn-sm ms-2"
+              href="/swagger-ui.html"
+              target="_blank"
+            >
+              <i class="fas fa-book-open" aria-hidden="true"></i> API Docs
+            </a>
+          </li>
 
           <!-- Logout button for authenticated users -->
           <li class="nav-item" sec:authorize="isAuthenticated()">
