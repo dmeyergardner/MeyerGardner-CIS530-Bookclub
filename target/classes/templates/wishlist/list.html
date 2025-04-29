@@ -5,7 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bookclub | Wishlist</title>
 
-    <!-- Bootstrap 5 -->
+    <!-- MDL Theme -->
+    <link
+      rel="stylesheet"
+      href="https://code.getmdl.io/1.3.0/material.teal-pink.min.css"
+    />
+
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Bootstrap 5 CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -17,60 +31,83 @@
   </head>
 
   <body>
-    <!-- Header -->
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header Fragment -->
     <div th:insert="~{fragments/header :: header}"></div>
 
-    <main class="container py-5" role="main">
-      <h1 class="text-center heading-mdl mb-5">💖 My Wishlist</h1>
+    <!-- Main Content -->
+    <main id="main-content" class="container py-5" role="main">
+      <h1 class="text-center heading-mdl mb-5 mdl-typography--display-2">
+        💖 My Wishlist
+      </h1>
 
-      <div id="wishlist" class="table-responsive"></div>
+      <!-- Wishlist Table -->
+      <div id="wishlist"></div>
     </main>
 
+    <!-- Footer Fragment -->
     <div th:insert="~{fragments/footer :: footer}"></div>
 
-    <!-- JavaScript Fetch -->
+    <!-- Footer Scripts -->
+    <div th:replace="~{fragments/scriptFooter :: scriptFooter}"></div>
+
+    <!-- JavaScript for Fetching and Building the Wishlist Table -->
     <script>
       class HttpClient {
         async get(url) {
-          const response = await fetch(url);
-          return await response.json();
+          const response = await fetch(url, { method: "GET" });
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
         }
       }
 
       function buildTable(items) {
         let tableString = `
-                <table class="table table-striped table-hover">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Title</th>
-                            <th>ISBN</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
+              <table class="table table-hover table-bordered">
+                  <thead class="table-dark">
+                      <tr>
+                          <th>Title</th>
+                          <th>ISBN</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+          `;
 
         for (const item of items) {
           tableString += `
-                    <tr>
-                        <td>${item.title}</td>
-                        <td>${item.isbn}</td>
-                    </tr>
-                `;
+                  <tr>
+                      <td>${item.title}</td>
+                      <td>${item.isbn}</td>
+                  </tr>
+              `;
         }
 
         tableString += `
-                    </tbody>
-                </table>
-            `;
+                  </tbody>
+              </table>
+          `;
 
         return tableString;
       }
 
-      (async () => {
+      // Fetch the wishlist items and display the table
+      document.addEventListener("DOMContentLoaded", async () => {
         const client = new HttpClient();
-        const items = await client.get("/api/wishlist");
-        document.getElementById("wishlist").innerHTML = buildTable(items);
-      })();
+        try {
+          const wishlistItems = await client.get("/api/wishlist");
+          document.getElementById("wishlist").innerHTML =
+            buildTable(wishlistItems);
+        } catch (error) {
+          console.error("Failed to fetch wishlist items:", error);
+          document.getElementById(
+            "wishlist"
+          ).innerHTML = `<div class="alert alert-danger">Failed to load wishlist items.</div>`;
+        }
+      });
     </script>
   </body>
 </html>
