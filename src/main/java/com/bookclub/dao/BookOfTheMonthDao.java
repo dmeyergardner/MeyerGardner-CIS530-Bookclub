@@ -1,19 +1,17 @@
-// File: src/main/java/com/bookclub/dao/BookOfTheMonthDao.java
-
 package com.bookclub.dao;
 
 import com.bookclub.model.BookOfTheMonth;
 import com.bookclub.service.GenericCrudDao;
 
 /**
- * DAO interface for BookOfTheMonth records.
- * 
- * Extends the generic CRUD interface to support basic operations
- * such as list, add, and remove, using String as the key type.
+ * BookOfTheMonthDao defines the contract for CRUD operations
+ * on BookOfTheMonth entities. This interface extends the
+ * GenericCrudDao interface with type parameters BookOfTheMonth and String.
+ *
+ * Implementing classes should provide MongoDB-based or other storage logic
+ * to handle operations such as listing, adding, finding, updating, and removing
+ * book entries designated for a particular month.
  */
 public interface BookOfTheMonthDao extends GenericCrudDao<BookOfTheMonth, String> {
-    // Inherits:
-    // List<BookOfTheMonth> list(String key);
-    // void add(BookOfTheMonth item);
-    // boolean remove(String key);
+    // All required methods are inherited from GenericCrudDao
 }

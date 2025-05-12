@@ -1,5 +1,3 @@
-// File: src/main/java/com/bookclub/dao/impl/MongoBookOfTheMonthDao.java
-
 package com.bookclub.dao.impl;
 
 import java.util.List;
@@ -14,21 +12,25 @@ import com.bookclub.dao.BookOfTheMonthDao;
 import com.bookclub.model.BookOfTheMonth;
 
 /**
- * MongoDB implementation of BookOfTheMonthDao.
- * Handles storage and retrieval of monthly book selections using MongoTemplate.
+ * MongoBookOfTheMonthDao implements BookOfTheMonthDao
+ * using MongoDB as the data store. It provides methods
+ * for listing, adding, and removing BookOfTheMonth records.
+ *
+ * This DAO supports filtering by month (as key),
+ * useful for role-based or time-based queries.
  */
-@Repository("BookOfTheMonthDao")
+@Repository("bookOfTheMonthDao")
 public class MongoBookOfTheMonthDao implements BookOfTheMonthDao {
 
     @Autowired
     private MongoTemplate mongoTemplate;
 
     /**
-     * Retrieves a list of BookOfTheMonth entries filtered by the provided month.
-     * If the key is "999", all records are returned.
+     * Lists BookOfTheMonth entries.
+     * If key is "999", returns all entries. Otherwise filters by month.
      *
-     * @param key the string representation of the month (1–12) or "999" for all
-     * @return list of BookOfTheMonth records
+     * @param key Month number as string, or "999" to return all entries.
+     * @return List of BookOfTheMonth records.
      */
     @Override
     public List<BookOfTheMonth> list(String key) {
@@ -41,9 +43,9 @@ public class MongoBookOfTheMonthDao implements BookOfTheMonthDao {
     }
 
     /**
-     * Adds a new BookOfTheMonth entry to the collection.
+     * Adds a new BookOfTheMonth entry.
      *
-     * @param item the BookOfTheMonth object to insert
+     * @param item BookOfTheMonth to be added.
      */
     @Override
     public void add(BookOfTheMonth item) {
@@ -53,8 +55,8 @@ public class MongoBookOfTheMonthDao implements BookOfTheMonthDao {
     /**
      * Removes a BookOfTheMonth entry by ID.
      *
-     * @param id the ID of the record to remove
-     * @return true if the record was acknowledged and removed
+     * @param id ID of the book to remove.
+     * @return true if removal was acknowledged, false otherwise.
      */
     @Override
     public boolean remove(String id) {
@@ -63,27 +65,23 @@ public class MongoBookOfTheMonthDao implements BookOfTheMonthDao {
     }
 
     /**
-     * Updates a BookOfTheMonth entry.
-     * Currently unimplemented.
+     * Not implemented: update logic.
      *
-     * @param entity the entity to update
-     * @throws UnsupportedOperationException if called
+     * @param entity BookOfTheMonth entity to update.
      */
     @Override
     public void update(BookOfTheMonth entity) {
-        throw new UnsupportedOperationException("Update not yet supported.");
+        throw new UnsupportedOperationException("Update not implemented.");
     }
 
     /**
-     * Finds a BookOfTheMonth by ID.
-     * Currently unimplemented.
+     * Not implemented: find logic.
      *
-     * @param key the ID to search for
-     * @return BookOfTheMonth object
-     * @throws UnsupportedOperationException if called
+     * @param key ID to find.
+     * @return BookOfTheMonth record (not implemented).
      */
     @Override
     public BookOfTheMonth find(String key) {
-        throw new UnsupportedOperationException("Find not yet supported.");
+        throw new UnsupportedOperationException("Find not implemented.");
     }
 }

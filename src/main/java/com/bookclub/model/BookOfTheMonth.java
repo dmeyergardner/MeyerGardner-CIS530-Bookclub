@@ -1,35 +1,34 @@
-// File: src/main/java/com/bookclub/model/BookOfTheMonth.java
-
 package com.bookclub.model;
 
 import org.springframework.data.annotation.Id;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 /**
- * Represents a featured book selected for a particular month.
- * Used in the Bookclub application to support monthly highlights.
- * 
+ * BookOfTheMonth represents a selected book for a specific month.
+ * Used for role-based admin features and stored in MongoDB.
+ *
  * Fields:
- * - id: Unique identifier for the book entry
- * - month: Month (1-12) for which the book is featured
- * - isbn: ISBN identifier of the book
- * 
- * This model is persisted in MongoDB and validated for required fields.
- * 
- * @author
+ * - id: Unique MongoDB document ID.
+ * - month: Numeric value representing the calendar month (1–12).
+ * - isbn: Required field representing the book's ISBN.
+ *
+ * Example toString output:
+ * BookOfTheMonth{id=abc123, month=4, isbn=9780140328721}
  */
 public class BookOfTheMonth {
 
     @Id
     private String id;
 
+    @NotNull(message = "Month selection is required.")
     private Integer month;
 
     @NotEmpty(message = "ISBN is a required field.")
     private String isbn;
 
-    // ===== Constructors =====
+    // Constructors
     public BookOfTheMonth() {
     }
 
@@ -39,7 +38,7 @@ public class BookOfTheMonth {
         this.isbn = isbn;
     }
 
-    // ===== Getters and Setters =====
+    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -64,11 +63,13 @@ public class BookOfTheMonth {
         this.isbn = isbn;
     }
 
-    // ===== String Representation =====
+    // toString override for debugging and logging
     @Override
     public String toString() {
-        return String.format(
-                "BookOfTheMonth{id='%s', month=%d, isbn='%s'}",
-                id, month, isbn);
+        return "BookOfTheMonth{" +
+                "id='" + id + '\'' +
+                ", month=" + month +
+                ", isbn='" + isbn + '\'' +
+                '}';
     }
 }
