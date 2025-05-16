@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookclub | Monthly Picks</title>
+
+    <!-- Material Design Lite (MDL) Theme -->
+    <link
+      rel="stylesheet"
+      href="https://code.getmdl.io/1.3.0/material.teal-pink.min.css"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/stylesheet.css}" />
+  </head>
+
+  <body>
+    <!-- Accessibility: Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header Fragment -->
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="container py-5" role="main">
+      <h1 class="text-center heading-mdl mb-5 mdl-typography--display-2">
+        📚 Monthly Book Selections
+      </h1>
+
+      <section
+        class="row g-4 justify-content-center"
+        th:if="${books != null}"
+        aria-labelledby="monthly-books-heading"
+      >
+        <h2 id="monthly-books-heading" class="visually-hidden">
+          Monthly Books
+        </h2>
+
+        <div
+          class="col-12 col-sm-6 col-md-4 col-lg-3"
+          th:each="book : ${books}"
+        >
+          <article class="card book-card mdl-shadow--6dp h-100">
+            <div class="card-body d-flex flex-column">
+              <!-- Book Title -->
+              <h2
+                class="card-title mdl-color-text--teal-800 text-truncate"
+                th:text="${book.title}"
+                tabindex="0"
+              >
+                Book Title
+              </h2>
+
+              <!-- ISBN -->
+              <p class="card-text" tabindex="0">
+                <i class="fas fa-barcode" aria-hidden="true"></i>
+                <strong>ISBN:</strong>
+                <span th:text="${book.isbn}">0000000000</span>
+              </p>
+
+              <!-- Action Buttons -->
+              <div class="mt-auto">
+                <a
+                  th:href="@{/book/{id}(id=${book.isbn})}"
+                  class="btn btn-secondary w-100 mb-2"
+                  aria-label="View details for [[${book.title}]]"
+                >
+                  <i class="fas fa-eye" aria-hidden="true"></i> View
+                </a>
+
+                <a
+                  th:href="${book.infoUrl}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-primary w-100"
+                  aria-label="View [[${book.title}]] on OpenLibrary"
+                >
+                  <i class="fas fa-link" aria-hidden="true"></i> Web Link
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- No Books Fallback -->
+      <div
+        class="text-center text-muted mt-5"
+        th:if="${books == null or books.isEmpty()}"
+      >
+        <p>No books available at the moment. Please check back later!</p>
+      </div>
+    </main>
+
+    <!-- Footer Fragment -->
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+    <!-- Footer Scripts -->
+    <div th:replace="~{fragments/scriptFooter :: scriptFooter}"></div>
+  </body>
+</html>
