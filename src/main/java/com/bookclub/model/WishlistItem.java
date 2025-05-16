@@ -1,15 +1,18 @@
-// File: src/main/java/com/bookclub/model/WishlistItem.java
-
 package com.bookclub.model;
+
+import org.springframework.data.annotation.Id;
 
 import jakarta.validation.constraints.NotBlank;
 
 /**
  * Represents a user's Wishlist Item.
  * Developer Note:
- * - Now includes a 'username' property to associate items with a specific user.
+ * - Now includes an ID and a username to associate items with a specific user.
  */
 public class WishlistItem {
+
+    @Id
+    private String id;
 
     @NotBlank(message = "ISBN must not be blank")
     private String isbn;
@@ -17,7 +20,6 @@ public class WishlistItem {
     @NotBlank(message = "Title must not be blank")
     private String title;
 
-    // New field for user association
     private String username;
 
     public WishlistItem() {
@@ -25,6 +27,14 @@ public class WishlistItem {
     }
 
     // ======= Getters and Setters ========
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getIsbn() {
         return isbn;
@@ -55,7 +65,8 @@ public class WishlistItem {
     @Override
     public String toString() {
         return "WishlistItem{" +
-                "isbn='" + isbn + '\'' +
+                "id='" + id + '\'' +
+                ", isbn='" + isbn + '\'' +
                 ", title='" + title + '\'' +
                 ", username='" + username + '\'' +
                 '}';
