@@ -46,8 +46,16 @@ public class SecurityConfig {
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http
                                 .authorizeHttpRequests(auth -> auth
+                                                // Public resources
                                                 .requestMatchers("/login", "/css/**", "/js/**", "/images/**")
                                                 .permitAll()
+
+                                                // Admin-only pages
+                                                .requestMatchers("/monthly-books", "/monthly-books/list",
+                                                                "/monthly-books/new")
+                                                .hasRole("ADMIN")
+
+                                                // All other requests require authentication
                                                 .anyRequest().authenticated())
                                 .formLogin(form -> form
                                                 .loginPage("/login")

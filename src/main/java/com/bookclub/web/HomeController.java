@@ -1,74 +1,72 @@
-/******************************************************************************
- * File: HomeController.java
- * Author: Deb Meyer-Gardner
- * Created: 2025-03-26
- * Description: This controller handles routing for the Bookclub application,
- *              including the home, about, contact pages, and the dynamic
- *              detail view for individual book selections.
- ******************************************************************************/
-
 package com.bookclub.web;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bookclub.dao.impl.RestBookDao;
+import com.bookclub.dao.BookOfTheMonthDao;
 import com.bookclub.model.Book;
+import com.bookclub.model.BookOfTheMonth;
+import com.bookclub.service.dao.BookDao;
 
+/**
+ * HomeController handles routing for the Bookclub application,
+ * specifically the homepage and loading dynamic book data for the current
+ * month.
+ */
 @Controller
-@RequestMapping("/")
 public class HomeController {
 
+    private BookOfTheMonthDao bookOfTheMonthDao = null;
+    private BookDao bookDao = null;
+
     /**
-     * Displays the home page and populates it with a list of Book objects.
+     * Injects the BookOfTheMonthDao bean.
+     * 
+     * @param dao injected DAO for accessing monthly books
      */
-    @GetMapping
+    @Autowired
+    public void setBookOfTheMonthDao(BookOfTheMonthDao dao) {
+        this.bookOfTheMonthDao = dao;
+    }
+
+    /**
+     * Injects the BookDao bean for accessing OpenLibrary API.
+     * 
+     * @param dao REST-based book DAO
+     */
+    @Autowired
+    public void setBookDao(BookDao dao) {
+        this.bookDao = dao;
+    }
+
+    /**
+     * Displays the homepage and fetches books for the current month.
+     *
+     * @param model Spring model to pass attributes to the view
+     * @return index.html
+     */
+    @GetMapping("/")
     public String showHome(Model model) {
-        System.out.println("🚀 HomeController: showHome() triggered");
-        RestBookDao bookDao = new RestBookDao();
-        List<Book> books = bookDao.list();
+        int currentMonth = LocalDate.now().getMonthValue();
+
+        // Get book metadata for the current month from MongoDB
+        List<BookOfTheMonth> booksOfTheMonth = bookOfTheMonthDao.list(String.valueOf(currentMonth));
+
+        // Build the ISBN query string (e.g., "ISBN:123,ISBN:456")
+        String isbnString = booksOfTheMonth.stream()
+                .map(book -> "ISBN:" + book.getIsbn())
+                .collect(Collectors.joining(","));
+
+        // Query OpenLibrary for book details
+        List<Book> books = bookDao.list(isbnString);
+
         model.addAttribute("books", books);
-        return "index";
-    }
-
-    /**
-     * Displays the About Us page.
-     */
-    @GetMapping("/about")
-    public String showAboutUs(Model model) {
-        return "about";
-    }
-
-    /**
-     * Displays the Contact Us page.
-     */
-    @GetMapping("/contact")
-    public String showContactUs(Model model) {
-        return "contact";
-    }
-
-    /**
-     * Displays the detail view for a selected Book by its ISBN.
-     */
-    @GetMapping("/book/{id}")
-    public String getMonthlyBook(@PathVariable String id, Model model) {
-        RestBookDao bookDao = new RestBookDao();
-        Book book = bookDao.find(id);
-        model.addAttribute("book", book);
-        return "monthly-books/view";
-    }
-
-    /**
-     * Optional: Simple test route for debugging.
-     */
-    @GetMapping("/test")
-    public String testRoute() {
-        System.out.println("🧪 Test route triggered");
         return "index";
     }
 }

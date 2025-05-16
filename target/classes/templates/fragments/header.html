@@ -34,6 +34,18 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
+          <!-- Monthly Books link only for ADMIN users -->
+          <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+            <a
+              class="nav-link"
+              href="/monthly-books"
+              aria-label="View monthly book selections"
+            >
+              <i class="fas fa-calendar-alt" aria-hidden="true"></i> Monthly
+              Books
+            </a>
+          </li>
+
           <!-- Static nav links -->
           <li class="nav-item">
             <a class="nav-link" href="/about">

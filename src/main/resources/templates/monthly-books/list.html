@@ -36,6 +36,14 @@
     <h1 class="text-center heading-mdl mb-5 mdl-typography--display-2">
       📅 Books of the Month
     </h1>
+    
+    <div class="mb-3">
+    <label for="month" class="form-label">Months</label>
+    <caption class="visually-hidden">List of books selected for each month</caption>
+    <select name="month" id="month" class="form-select" th:field="*{month}">
+    <option th:each="m : ${months.keySet()}" th:value="${m}" th:utext="${months.get(m)}"></option>
+    </select>
+    </div>
 
     <!-- Table of Monthly Picks -->
     <section aria-label="Books of the Month">

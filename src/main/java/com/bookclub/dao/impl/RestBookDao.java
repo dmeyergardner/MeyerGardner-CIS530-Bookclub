@@ -1,13 +1,11 @@
 /******************************************************************************
- * File: MemBookDao.java
+ * File: RestBookDao.java
  * Author: Deb Meyer-Gardner
  * Created: 2025-03-26
- * Description: This class implements the BookDao interface using in-memory
- *              storage. It provides access to a static list of book data for
- *              display and detail view within the Bookclub application.
+ * Description: REST-based implementation of the BookDao interface using
+ *              OpenLibrary API. Fetches book data by ISBNs for display
+ *              in the Bookclub application.
  ******************************************************************************/
-
-// File: src/main/java/com/bookclub/dao/impl/RestBookDao.java
 
 package com.bookclub.dao.impl;
 
@@ -31,27 +29,20 @@ import com.jayway.jsonpath.JsonPath;
 /**
  * REST-based implementation of the BookDao interface.
  * <p>
- * This DAO interacts with the OpenLibrary API to fetch book information based
- * on ISBN numbers.
+ * Communicates with the OpenLibrary API to fetch book data
+ * based on ISBN numbers. Uses Spring's RestTemplate for HTTP
+ * calls and JsonPath to parse responses.
  * </p>
- * <p>
- * It uses Spring's RestTemplate to perform HTTP requests and JsonPath for
- * parsing JSON responses.
- * </p>
- * 
- * Example OpenLibrary API call: https://openlibrary.org/api/books
- *
- * @author
  */
 @Repository
 public class RestBookDao implements BookDao {
 
     /**
-     * Calls the OpenLibrary API with a list of ISBNs and returns the parsed
-     * document.
+     * Makes an HTTP GET request to the OpenLibrary API for a set of ISBNs.
      *
-     * @param isbnString Comma-separated string of ISBNs to query.
-     * @return Parsed JSON document containing the book information.
+     * @param isbnString Comma-separated list of ISBNs prefixed with "ISBN:"
+     *                   (e.g., "ISBN:0451526538,ISBN:9780140328721").
+     * @return Parsed JSON object containing book data.
      */
     public Object getBooksDoc(String isbnString) {
         String openLibraryUrl = "https://openlibrary.org/api/books";
@@ -75,14 +66,15 @@ public class RestBookDao implements BookDao {
     }
 
     /**
-     * Retrieves a list of Book objects by querying the OpenLibrary API.
+     * Returns a list of Book objects from the OpenLibrary API
+     * based on a provided string of ISBNs.
      *
-     * @return List of Book objects.
+     * @param isbnString Comma-separated ISBNs prefixed with "ISBN:"
+     * @return list of Book objects
      */
     @Override
-    public List<Book> list() {
-        Object doc = getBooksDoc("ISBN:0451526538,ISBN:9780140328721,ISBN:9780316769488,ISBN:9780061120084");
-
+    public List<Book> list(String isbnString) {
+        Object doc = getBooksDoc(isbnString);
         List<String> isbns = JsonPath.read(doc, "$..key");
 
         List<Book> books = new ArrayList<>();
@@ -101,7 +93,7 @@ public class RestBookDao implements BookDao {
             book.setTitle(titleList.size() > 0 ? titleList.get(0) : "N/A");
             book.setNumOfPages(numOfPagesList.size() > 0 ? numOfPagesList.get(0) : 0);
             book.setInfoUrl(infoUrlList.size() > 0 ? "https://openlibrary.org" + infoUrlList.get(0) : "N/A");
-            book.setDescription("N/A"); // OpenLibrary API doesn't provide description directly here.
+            book.setDescription("N/A");
 
             books.add(book);
         }
@@ -109,10 +101,10 @@ public class RestBookDao implements BookDao {
     }
 
     /**
-     * Retrieves a single Book object based on the given ISBN.
+     * Finds and returns a single Book object based on ISBN.
      *
-     * @param isbn The ISBN of the book to retrieve.
-     * @return Book object matching the ISBN or null if not found.
+     * @param isbn The ISBN of the book to look up (digits only, no "ISBN:" prefix)
+     * @return Book object with available metadata
      */
     @Override
     public Book find(String isbn) {
