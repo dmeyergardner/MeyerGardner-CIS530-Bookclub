@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookclub | Wishlist</title>
+
+    <!-- MDL Theme -->
+    <link
+      rel="stylesheet"
+      href="https://code.getmdl.io/1.3.0/material.teal-pink.min.css"
+    />
+
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Bootstrap 5 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" th:href="@{/css/stylesheet.css}" />
+  </head>
+
+  <body>
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header Fragment -->
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="container py-5" role="main">
+      <h1 class="text-center heading-mdl mb-5 mdl-typography--display-2">
+        💖 My Wishlist
+      </h1>
+
+      <!-- Wishlist Table Div -->
+      <div id="wishlist" aria-live="polite"></div>
+    </main>
+
+    <!-- Footer Fragment -->
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+    <!-- Footer Scripts -->
+    <div th:replace="~{fragments/scriptFooter :: scriptFooter}"></div>
+
+    <!-- JavaScript to Fetch and Build the Wishlist Table -->
+    <script>
+      class HttpClient {
+        async get(url) {
+          const response = await fetch(url, { method: "GET" });
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        }
+      }
+
+      function buildTable(items) {
+        let tableString = `
+          <table class="table table-hover table-bordered" role="table">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+        `;
+
+        for (const item of items) {
+          tableString += `
+              <tr>
+                <td>${item.title}</td>
+                <td>${item.isbn}</td>
+                <td>
+                  <a href="/wishlist/${item.id}" class="btn btn-sm btn-primary" aria-label="Edit ${item.title}">
+                    <i class="fas fa-edit" aria-hidden="true"></i> Edit
+                  </a>
+                  <a href="/wishlist/remove/${item.id}" class="btn btn-sm btn-danger ms-2" aria-label="Delete ${item.title}">
+                    <i class="fas fa-trash" aria-hidden="true"></i> Delete
+                  </a>
+                </td>
+              </tr>
+          `;
+        }
+
+        tableString += `
+            </tbody>
+          </table>
+        `;
+
+        return tableString;
+      }
+
+      // Fetch and render the wishlist items
+      document.addEventListener("DOMContentLoaded", async () => {
+        const client = new HttpClient();
+        try {
+          const wishlistItems = await client.get("/api/wishlist");
+          document.getElementById("wishlist").innerHTML =
+            buildTable(wishlistItems);
+        } catch (error) {
+          console.error("Failed to fetch wishlist items:", error);
+          document.getElementById("wishlist").innerHTML = `
+            <div class="alert alert-danger" role="alert">Failed to load wishlist items.</div>
+          `;
+        }
+      });
+    </script>
+  </body>
+</html>
